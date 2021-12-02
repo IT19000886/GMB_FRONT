@@ -1,0 +1,109 @@
+{
+  "status": [
+    {
+      "id": 1,
+      "name": "new"
+    },
+    {
+      "name": "pending",
+      "id": 2
+    },
+    {
+      "name": "reject",
+      "id": 3
+    },
+    {
+      "name": "responding",
+      "id": 4
+    }
+  ],
+  "measure": [
+    {
+      "id": 1,
+      "type": "plan"
+    },
+    {
+      "type": "type 1",
+      "id": 2
+    },
+    {
+      "type": "type 2",
+      "id": 3
+    },
+    {
+      "type": "type 3",
+      "id": 4
+    },
+    {
+      "type": "type 4",
+      "id": 5
+    }
+  ],
+  "images": [
+    {
+      "id": 1
+    },
+    {
+      "id": 2
+    },
+    {
+      "id": 3
+    },
+    {
+      "id": 4
+    }
+  ],
+  "orders": [
+    {
+      "location": "",
+      "coveringType": "BRB",
+      "type2": "FR",
+      "type3": "TRB",
+      "smeasure": "BRB",
+      "measure": "",
+      "width": "",
+      "drop": "",
+      "quantity": "",
+      "frange": "",
+      "fdetails": "",
+      "fwidth": "",
+      "specification": "",
+      "details": "",
+      "id": 1
+    },
+    {
+      "location": "",
+      "coveringType": "TRB",
+      "type2": "FR",
+      "type3": "BRB",
+      "smeasure": "TRB",
+      "measure": "",
+      "width": "",
+      "drop": "",
+      "quantity": "",
+      "frange": "",
+      "fdetails": "",
+      "fwidth": "",
+      "specification": "",
+      "details": "",
+      "id": 3
+    },
+    {
+      "location": "fff",
+      "coveringType": "BRB",
+      "type2": "FR",
+      "type3": "BRB",
+      "smeasure": "SRB",
+      "measure": "",
+      "width": "width",
+      "drop": "drop",
+      "quantity": "quantity",
+      "frange": "fr",
+      "fdetails": "fd",
+      "fwidth": "fw",
+      "specification": "sp",
+      "details": "det",
+      "id": 4
+    }
+  ]
+}
