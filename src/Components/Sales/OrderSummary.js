@@ -9,7 +9,7 @@ import UserRow from './UserRow';
 import ViewPDetails from './ViewPDetails';
 import Tabs from 'react-bootstrap/Tabs';
 import { Tab } from 'react-bootstrap';
-
+import Navbar from '../Navbar'
 
 class OrderSummary extends Component {
     constructor(props) {
@@ -30,6 +30,7 @@ class OrderSummary extends Component {
           this.setState({ addorders:addorders.data })
         }
       )
+      
   }
 
   componentDidUpdate() {
@@ -46,16 +47,21 @@ class OrderSummary extends Component {
   }
   checkData() {
     return (
+      <>
+      <nav>
+      <Navbar />
+      </nav>  
         <div>
-        <div className="container">
+        <div className="container ">
         <ViewPDetails/>
             <div className="text-right py-4">
-                <Link to={"/addorder/"+this.props.match.params.id} className="btn btn-dark" >Add Order</Link>
+                <Link to={"/addorder/"+this.props.match.params.id} className="btn btn-dark" style={{float:'right'}}>Add Order</Link>
             </div>
-            <div className="py-4">
-            <h1 className="text-center">Order Summary</h1>
+            <div className="container py-4">
+            <h5>Order Summary</h5>
+            <hr></hr>
             <table  className="table border shadow ">
-                <thead className="table-light text-center">
+                <thead className="table-dark text-center">
                 <tr>
                     <th scope="col">Location</th>
                     <th scope="col">Location Code</th>
@@ -69,7 +75,7 @@ class OrderSummary extends Component {
                     <th>Delete</th>
                 </tr>
                 </thead>
-                <tbody> 
+                <tbody className="text-center"> 
                     
                 {this.fillTable()}
 
@@ -84,7 +90,9 @@ class OrderSummary extends Component {
        
         </div>
         </div>
+        </>
     )
+    
 }
 render() {
     return this.checkData()

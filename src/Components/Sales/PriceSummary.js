@@ -20,7 +20,8 @@ componentDidMount(){
     axios.get('http://localhost:4000/api/order/cal/'+this.props.match.params.id)
     .then(
         summaries=> this.setState({summaries: summaries.data})
-    )
+        )
+        
 }
 componentDidUpdate(){
     axios.get('http://localhost:4000/api/order/cal/'+this.props.match.params.id)
@@ -31,7 +32,7 @@ componentDidUpdate(){
 
 fillTable(){
     return this.state.summaries.map(summary => {
-        return <SummaryRow  summary1={summary.CoveringType} summary2={summary.Quantity} summary3={summary.AvgTotal} summary4={summary.Total}
+        return <SummaryRow key={summary.TempClientID} summary1={summary.CoveringType} summary2={summary.Quantity} summary3={summary.AvgTotal} summary4={summary.Total}
         summary5={summary.TotalMaterial} summary6={summary.MaterialPrice} summary7={summary.LabourCost} summary8={summary.AditionalCharges}/>
     })
 }
@@ -39,12 +40,13 @@ fillTable(){
 checkData(){
 return(
 
-    <div className="container">
+    <div className="container py-4">
     
-    <div className="py-4">
-    <h2 className="text-center">Price Summary</h2>
+    <div className="pt-5">
+    <h5>Price Summary</h5>
+    <hr></hr>
     <table className="table border shadow">
-        <thead className="table-light text-center">
+        <thead className="table-dark text-center">
         <tr>
             
             <th scope="col">Covering Type</th>
@@ -59,23 +61,23 @@ return(
             <th scope="col">Total(with GST)</th>
         </tr>
         </thead>
-        <tbody> 
+        <tbody className="text-center"> 
             {
                this.fillTable()
             }
             </tbody>
             </table>
             </div>
-            <div className="container xs-lg-2">
-                <h4>Grant Total</h4>
+            <div className="container xs-lg-2 float-right" style={{float:'right'}}>
+                <h4 >Grant Total</h4>
                 <div>
                     {this.summaries}
                 </div>
             
             </div>
-             <div className="float-md-right m-2">  
-             <Link to="/" className="btn btn-dark ">Cancel</Link>
-             <Link to="/" className="btn btn-primary btn-block ">Save</Link>
+             <div className="col-md-12 float-right my-5">  
+             <Link to="/" className="btn btn-dark" class="btn btn-info mx-2  col-md-2" style={{float:'right'}}>Cancel</Link>
+             <Link to="/" className="btn btn-primary btn-block " class="btn btn-info  col-md-2" style={{float:'right'}}>Save</Link>
             
              </div>
              </div>

@@ -1,12 +1,12 @@
 import React,{Component} from 'react';
 import { Button } from 'reactstrap';
 import axios from 'axios';
-import {Link} from 'react-router-dom';
 import Swal from 'sweetalert2'
 import { render } from '@testing-library/react';
 import AdditionalCharges from './modal/AdditionalCharges';
 import Discount from './modal/Discount'
-
+import { withRouter } from "react-router";
+import { Link, useParams } from 'react-router-dom';
 class SummaryRow extends Component {
     constructor(props){
         super(props);
@@ -22,7 +22,9 @@ class SummaryRow extends Component {
             summary5:props.summary5,
             summary6:props.summary6,
             summary7:props.summary7,
-            summary8:props.summary8
+            summary8:props.summary8,
+            summary:props.summary
+            
         };
         this.openAddCharge  = this.openAddCharge.bind(this);
         this.openDiscount = this.openDiscount.bind(this);
@@ -38,13 +40,14 @@ class SummaryRow extends Component {
           this.setState({
               showDiscount:!this.state.showDiscount
           })
+          
       }
 
 render(){
     return(
         <>
         {this.state.showAddCharge ? <AdditionalCharges open={this.openAddCharge} /> : null}
-        {this.state.showDiscount ? <Discount open={this.openDiscount} /> : null}
+        
         <tr className = 'text-center'>
             <td> {this.state.summary1}</td>
             <td> {this.state.summary2}</td>
@@ -54,7 +57,7 @@ render(){
             <td> <button className="btn btn-primary btn-block" onClick={this.openAddCharge} > ADD </button></td>
             <td> {this.state.summary3}</td>
             <td> {this.state.summary4}</td>
-            <td> <button className="btn btn-primary btn-block"  onClick={this.openDiscount}  > ADD </button> </td>
+            <td><Link to={'/discount/'+this.props.match.params.id}  onClick={this.openDiscount}><Button color="info">ADD</Button></Link> </td>
             <td> </td>
             
 
@@ -63,4 +66,4 @@ render(){
     )
 }
 }
-export default SummaryRow;
+export default withRouter(SummaryRow);

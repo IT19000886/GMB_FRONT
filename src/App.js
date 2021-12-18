@@ -15,7 +15,7 @@ import Contact from './Components/Home/Contact';
 import Quote  from './Components/Home/Quote';
 import New from "./Components/Sales/modal/Status";
 import Logout from "./Components/Login/logout";
-import OrderView from './Components/Sales/OrderView';
+import PriceSummary from './Components/Sales/PriceSummary';
 import AdditionalCharges from './Components/Sales/modal/AdditionalCharges';
 import Discount from './Components/Sales/modal/Discount'
 import { Settings, Account, ResetPassword, CoveringType, Location, Status, Measure } from './Components/Sidebar/pages/Settings';
@@ -41,7 +41,7 @@ function App() {
                     <Route exact path="/personal" component={PersonalDetail} />
                     <Route exact path="/personal/:id" component={EditPersonalDetail} />
                     <Route exact path="/ordersummary/:id" component={OrderSummary}/>
-                    <Route exact path="/orderview/:id" component={OrderView}/>
+                    <Route exact path="/pricesummary/" component={PriceSummary}/>
                     <Route path="/addorder/:id" component={Sales}/>
                     <Route path="/editorder/:id" component={EditSales}/>
                     <Route path='/settings' component={Settings} />
@@ -52,7 +52,7 @@ function App() {
                     <Route path='/settings/settings5'  component={Status} />
                     <Route path='/settings/settings6'  component={Measure} />
                     <Route path ='/charges/:id' component={AdditionalCharges}/>
-                    <Route path ='/discount/:id' component={Discount}/>
+                    <Route exact path ='/discount/:id' component={Discount}/>
                     <Route exact path='/edit/status/:id' component={New}/>
                     
                    

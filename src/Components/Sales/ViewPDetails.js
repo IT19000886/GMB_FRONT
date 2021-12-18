@@ -4,6 +4,7 @@ import { Alert, UncontrolledAlert, Button } from 'reactstrap';
 import { Link, useParams } from 'react-router-dom';
 import { Container, Form, Row, Col } from 'react-bootstrap';
 import { withRouter } from "react-router";
+import { width } from '@mui/system';
 
 class ViewPDetails extends Component {
 
@@ -61,81 +62,37 @@ onValueChange(e){
   
   render() {
     return (
-      <div className="container">
-      <div className="text-right shadow py-4">
-          <h1 className="text-center mb-4">Personal Details</h1>
-      <form >
-      <Row >
-      <Col md ="4">
-      <div className="form-group">
-          <label>Client Name: </label>
+      <>
+     
+      <div className="container py-4">
+        <div className={"pt-5"}>
+          <h5>Personal Details</h5>
+          <hr></hr>
+         <form  className="form-inline p-0 pb-4" >
+      <div className="row">
+        <div className="form-group col-md-4">
+          <label htmlFor="clientName">Client Name: </label>
           <input 
           type="text" 
-          className="form-control form-control-lg" 
+          className="form-control" 
           name="clientName"
           disabled={true}
           onChange={this.onValueChange}
           value={this.state.clientName}
           />
       </div>
-      </Col>
-      <Col md ="8">
-      <div className="form-group">
-      <label>Address: </label>
+      <div className="form-group col-md-4">
+      <label htmlFor="contactNumber" >Contact No: </label>
           <input 
           type="text" 
-          className="form-control form-control-lg" 
-          name="address"
-          disabled={true}
-          onChange={this.onValueChange}
-          value={this.state.address}
-          />
-      </div>
-      </Col>
-      </Row>
-      <Row>
-      <Col>
-      <div className="form-group">
-      <label>Suburb: </label>
-          <input 
-          type="text" 
-          className="form-control form-control-lg" 
-          name="suburb"
-          disabled={true}
-          onChange={this.onValueChange}
-          value={this.state.suburb}
-          />
-      </div>
-      </Col>
-      <Col>
-      <div className="form-group">
-      <label>Postcode: </label>
-          <input 
-          type="text" 
-          className="form-control form-control-lg" 
-          name="postalCode"
-          disabled={true}
-          onChange={this.onValueChange}
-          value={this.state.postalCode}
-          />
-      </div>
-      </Col>
-      <Col>
-      <div className="form-group">
-      <label>Contact No: </label>
-          <input 
-          type="text" 
-          className="form-control form-control-lg" 
+          className="form-control" 
           name="contactNum"
           disabled={true}
           onChange={this.onValueChange}
           value={this.state.contactNum}
           />
       </div>
-      </Col>
-      </Row>
-      <Col>
-      <div className="form-group">
+      <div className="form-group col-md-4">
       <label>Email: </label>
           <input 
           type="email" 
@@ -146,10 +103,44 @@ onValueChange(e){
           value={this.state.email}  
           />
       </div >
-      </Col>
-      <Row>
-      <Col>
-      <Form.Label for="measure"><strong>Measured By: </strong></Form.Label>
+      </div>
+      <div className="row">
+      <div className="form-group col-md-4">
+      <label htmlFor="address1">Address: </label>
+          <input 
+          type="text" 
+          className="form-control form-control-lg" 
+          name="address"
+          disabled={true}
+          onChange={this.onValueChange}
+          value={this.state.address}
+          />
+      </div>
+      <div className="form-group col-md-4">
+      <label htmlFor="address1">Suburb: </label>
+          <input 
+          type="text" 
+          className="form-control form-control-lg" 
+          name="suburb"
+          disabled={true}
+          onChange={this.onValueChange}
+          value={this.state.suburb}
+          />
+      </div>
+      <div className="form-group col-md-4">
+      <label>Postcode: </label>
+          <input 
+          type="text" 
+          className="form-control form-control-lg" 
+          name="postalCode"
+          disabled={true}
+          onChange={this.onValueChange}
+          value={this.state.postalCode}
+          />
+      </div>
+     </div>
+          
+      <label for="measure"><strong>Measured By: </strong></label>
               {['radio'].map((type) => (
                 <div key={`inline-${type}`} className="mb-3" id="measuredBy">
                   <Form.Check
@@ -184,14 +175,15 @@ onValueChange(e){
                   />
                 </div>
               ))}
-              </Col>
-              </Row> 
-              <Link to={'/personal/'+this.props.match.params.id}><Button color="info">Edit</Button></Link>
+               
+              <Link to={'/personal/'+this.props.match.params.id}><Button style={{float:'right'}} color="info">Edit</Button></Link>
+              
               </form>
               </div>
-              
               </div>
+              </>
               )
+             
             }
               
   

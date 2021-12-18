@@ -184,8 +184,7 @@ onFormSubmit(e){
           });
           
           this.props.history.push('/ordersummary/'+this.props.match.params.id);
-          this.props.history.push('/charges/'+this.props.match.params.id);
-          this.props.history.push('/discount/'+this.props.match.params.id);
+        
         })
 }
 
@@ -196,10 +195,11 @@ onFormSubmit(e){
       <Sidebar/>
      
 
-      <div className="container fluid py-2">
-            <h1 className="text-center">Add Order</h1>
+      <div className="container shadow py-4">
+        
+            <h5>Add Order</h5>
+            <hr></hr>
             <form onSubmit={this.onFormSubmit}>
-            
             <Row >
             <Col>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">

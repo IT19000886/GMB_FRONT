@@ -4,14 +4,14 @@ import { Container, Form, Row, Col } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import axios from 'axios';
 import { Button } from 'reactstrap';
-
+import { withRouter } from "react-router";
 class Discount extends Component{
     constructor(props) {
         super(props);
         this.state={
-            orderID:'',
+            visible : false,
+            tempClientID:'',
             discount:"",
-
         }
         this.onDismiss = this.onDismiss.bind(this);
         this.onValueChange = this.onValueChange.bind(this);
@@ -23,57 +23,55 @@ class Discount extends Component{
             visible : false
         })
     }
+     handleClick = () => {
+        this.props.open();
+    };
     onValueChange(e){
         this.setState({
             [e.target.name] : e.target.value
         })
       }
     
-
     componentDidMount() {
-        
-        if(this.props.match && this.props.match.params.orderID){   
-            const orderID = this.props.match.params.orderID
-        axios.get(`http://localhost:4000/api/order/order/${orderID}`)
-        .then(
-            user=>{
-                this.setState({
-                    orderID:user.data.OrderID,
-                })
+        console.log(this.props)
+        axios.get('http://localhost:4000/api/order/order/'+this.props.match.params.id)
+      .then(
+          user =>{
+              this.setState({
+                tempClientID:user.data.TempClientID,
+              })
             }
         )
     }
-}
-  
-
     onFormSubmit(e){
         e.preventDefault();
-        const orderID = this.state.orderID;
+        const tempClientID = this.state.tempClientID;
         const discount = this.state.discount;
 
-        const adddiscount = {orderID,discount};
+        const adddiscount = {tempClientID,discount}
 
-        console.log(orderID)
+        console.log(tempClientID)
         axios.post('http://localhost:4000/api/discount/discount',adddiscount)
         .then(res=>{
             this.setState({
                 visible:true,
-                orderID:"",
-                discount:""
+                tempClientID:"",
+                discount:"",
             });
+           
         })
     }
-
-
-
     handleClick = () => {
-        this.props.open();
+        this.setState({
+            visible : false
+        })
     };
 
     render(){
         
 
     return (
+        
         <Modal 
         isOpen={true} 
         shouldCloseOnOverlayClick={false}
@@ -146,10 +144,10 @@ class Discount extends Component{
          
          </Modal>
         
-        
-    );
+         
+    )
         
     }
 }
 
-export default Discount
+export default Discount;

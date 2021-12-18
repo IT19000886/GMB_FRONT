@@ -3,6 +3,7 @@ import React, { Component, useState } from 'react'
 import { Link } from 'react-router-dom';
 import FileUploadComponent from './FileUploadComponent';
 import { Container, Form, Row, Col } from 'react-bootstrap';
+import Sidebar from '../Sidebar/comp/Sidebar';
 
 
 class PersonalDetail extends Component{
@@ -98,7 +99,9 @@ class PersonalDetail extends Component{
     
 render(){
     return (
-        <div className="container">
+      <>
+      <Sidebar/>
+        <div className="container py-4">
         <div className="text-right shadow py-5">
         <h1 className="text-center mb-4" >Personal Details</h1>
         <form id="personal-details" onSubmit={this.onFormSubmit}>
@@ -251,7 +254,9 @@ render(){
         </form>
         </div>
     </div>
+    </>
     )
+    
         }
 }
 
