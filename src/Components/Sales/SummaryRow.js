@@ -47,7 +47,7 @@ render(){
     return(
         <>
         {this.state.showAddCharge ? <AdditionalCharges open={this.openAddCharge} /> : null}
-        
+        {this.state.showDiscount? <Discount open={this.openDiscount} /> : null}
         <tr className = 'text-center'>
             <td> {this.state.summary1}</td>
             <td> {this.state.summary2}</td>
@@ -57,7 +57,7 @@ render(){
             <td> <button className="btn btn-primary btn-block" onClick={this.openAddCharge} > ADD </button></td>
             <td> {this.state.summary3}</td>
             <td> {this.state.summary4}</td>
-            <td><Link to={'/discount/'+this.props.match.params.id}  onClick={this.openDiscount}><Button color="info">ADD</Button></Link> </td>
+            <td> <button className="btn btn-primary btn-block" onClick={this.openDiscount}> ADD </button> </td>
             <td> </td>
             
 

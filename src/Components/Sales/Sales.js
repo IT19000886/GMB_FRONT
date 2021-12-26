@@ -37,6 +37,8 @@ class Sales extends Component {
       description:"",
       specification:"",
       coveringType1ID:0,
+      locationname:[],
+      locationtype:[],
       CT1:[],
       CT2Names:[],
       CT3Names:[],
@@ -92,10 +94,44 @@ axios.get('http://localhost:4000/api/setting/coveringType')
                 })
               }
         )
+
+axios.get('http://localhost:4000/api/setting/location')
+  .then(
+           user =>{
+                  this.setState({
+                    locationname:user.data
+                  })
+              }
+        )
+axios.get('http://localhost:4000/api/setting/locationCode')
+  .then(
+           user =>{
+                  this.setState({
+                      locationtype:user.data
+                    })
+              }
+        )
 }
 
 
 componentDidUpdate(prevProps, prevState){
+
+  axios.get('http://localhost:4000/api/setting/location')
+  .then(
+           user =>{
+                  this.setState({
+                    locationname:user.data
+                  })
+              }
+        )
+axios.get('http://localhost:4000/api/setting/locationCode')
+  .then(
+           user =>{
+                  this.setState({
+                      locationtype:user.data
+                    })
+              }
+        )
   axios.get('http://localhost:4000/api/setting/coveringType/'+this.state.coveringType1ID)
   .then(
           user =>{
@@ -183,7 +219,7 @@ onFormSubmit(e){
   
           });
           
-          this.props.history.push('/ordersummary/'+this.props.match.params.id);
+         
         
         })
 }
@@ -204,28 +240,38 @@ onFormSubmit(e){
             <Col>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label for="location"><strong>Location</strong></Form.Label>
-              <Form.Control
+              <Form.Select
                   id = "location"
                   name="location"
-                  type="text"
-                  placeholder="Enter the location" 
                   onChange={this.onValueChange} 
                   value={this.state.location}
-                  required/>
+                  required>
+                    <option value='0'></option>
+                    {this.state.locationname.map(x =>{
+                            return<option value ={x.LocationName}>{x.LocationName}</option>
+
+                        })}
+                      
+                    </Form.Select>
                 </Form.Group>
               </Col>
 
               <Col>
               <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label for="locationCode"><strong>Location Code</strong></Form.Label>
-              <Form.Control
+              <Form.Select
                   id = "locationCode"
                   name="locationCode"
-                  type="text"
-                  placeholder="Enter the location Code" 
                   onChange={this.onValueChange} 
                   value={this.state.locationCode}
-                  required/>
+                  required>
+                    <option value='0'></option>
+                    {this.state.locationtype.map(x =>{
+                            return<option value ={x.LocationCode}>{x.LocationCode}</option>
+
+                        })}
+                      
+                    </Form.Select>
                 </Form.Group>
               </Col>
 
@@ -497,7 +543,7 @@ onFormSubmit(e){
                   style={{ height: '100px' }}
                   placeholder="Enter the Fabric details" 
                   onChange={this.onValueChange}
-                  required 
+                  
                   value={this.state.fabricDetails}/>
                 </Form.Group>
                 </Col>
@@ -514,7 +560,7 @@ onFormSubmit(e){
                   type="text"
                   placeholder="Enter the Describtion" 
                   onChange={this.onValueChange} 
-                  required
+                  
                   value={this.state.description}/>
                 </Form.Group>
                 </Col>
@@ -528,7 +574,7 @@ onFormSubmit(e){
                   type="text"
                   placeholder="Enter the Specification" 
                   onChange={this.onValueChange}
-                  required 
+                   
                   value={this.state.specification}/>
                 </Form.Group>
               

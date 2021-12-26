@@ -18,14 +18,16 @@ class Discount extends Component{
         this.onFormSubmit = this.onFormSubmit.bind(this);
         this.handleClick = this.handleClick.bind(this);
     }
+    handleClick = () => {
+        this.props.open();
+    };
+
     onDismiss(){
         this.setState({
             visible : false
         })
     }
-     handleClick = () => {
-        this.props.open();
-    };
+     
     onValueChange(e){
         this.setState({
             [e.target.name] : e.target.value
@@ -34,14 +36,14 @@ class Discount extends Component{
     
     componentDidMount() {
         console.log(this.props)
-        axios.get('http://localhost:4000/api/order/order/'+this.props.match.params.id)
-      .then(
-          user =>{
-              this.setState({
-                tempClientID:user.data.TempClientID,
-              })
-            }
-        )
+        axios.get('http://localhost:4000/api/client/tempClient/'+this.props.match.params.id)
+            .then(
+                user =>{
+                    this.setState({
+                      tempClientID:user.data.TempClientID,
+                    })
+                  }
+              )
     }
     onFormSubmit(e){
         e.preventDefault();
@@ -61,12 +63,7 @@ class Discount extends Component{
            
         })
     }
-    handleClick = () => {
-        this.setState({
-            visible : false
-        })
-    };
-
+   
     render(){
         
 
@@ -150,4 +147,4 @@ class Discount extends Component{
     }
 }
 
-export default Discount;
+export default withRouter(Discount);

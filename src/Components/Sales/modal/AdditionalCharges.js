@@ -4,14 +4,14 @@ import { Container, Form, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { useHistory } from 'react-router';
 import ChargeRow from './ChargeRow';
-
+import { withRouter } from "react-router";
 class AdditionalCharges extends Component{
     constructor(props) {
         super(props);
 
         this.state = {
             visible:false,
-            orderID:'',
+            tempClientID:'',
             addchargetype:'',
             priceperone:'',
             quantity:'',
@@ -19,6 +19,7 @@ class AdditionalCharges extends Component{
             additionalChargeType:0,
             addcharges:[],
             chargetype:[],
+            pricepone:[],
         }
         this.onDismiss = this.onDismiss.bind(this);
         this.onValueChange = this.onValueChange.bind(this);
@@ -43,30 +44,34 @@ class AdditionalCharges extends Component{
       }
 
     componentDidMount() {
+       
+        console.log(this.props)
+        axios.get('http://localhost:4000/api/client/tempClient/'+this.props.match.params.id)
+            .then(
+                user =>{
+                    this.setState({
+                      tempClientID:user.data.TempClientID,
+                    })
+                  }
+              )
         
-        if(this.props.match && this.props.match.params.id){
-            console.log(this.props)
-            const orderID = this.props.match.params.id
-        axios.get(`http://localhost:4000/api/order/order/${orderID}`)
+        axios.get('http://localhost:4000/api/setting/additionalcharges')
         .then(
             user=>{
                 this.setState({
-                    orderID:user.data.OrderID,
-                })
-            }
-        )
-    }
-        
-        axios.get('http://localhost:4000/api/setting/additonalcharges')
-        .then(
-            user=>{
-                this.setState({
-                    chargetype:user.data
+                    chargetype:user.data,
+                    priceperone:user.data.PricePerOne,
                     
                 })
             }
         )
     
+        axios.get('http://localhost:4000/api/charges/charges/'+this.props.match.params.id)
+      .then(
+        addcharges => {
+          this.setState({ addcharges:addcharges.data })
+        }
+      )
     
 }
 
@@ -86,32 +91,32 @@ class AdditionalCharges extends Component{
 
     onFormSubmit(e){
         e.preventDefault();
-        const orderID = this.state.orderID;
+        const tempClientID = this.state.tempClientID;
         const addchargetype = this.state.addchargetype;
         const priceperone = this.state.priceperone;
         const quantity = this.state.quantity;
         const price = this.state.quantity;
 
-        const addcharges = {orderID,addchargetype,priceperone,quantity,price}
+        const addcharges = {tempClientID,addchargetype,priceperone,quantity,price}
 
-        console.log(orderID);
+        console.log(tempClientID);
         axios.post('http://localhost:4000/api/charges/charges',addcharges)
         .then(res => {
             this.setState({
                 visible:true,
-                orderID:"",
+                tempClientID:"",
                 addchargetype:"",
                 priceperone:"",
                 quantity:"",
                 price:"",
 
             });
-            this.props.history.push('/pricesummary/'+this.props.match.params.id)
+            
         })
     }
     fillTable(){
         return this.state.addcharges.map(addcharge =>{
-            return <ChargeRow key={addcharge.AddChargeID} addcharge={addcharge}/>
+            return <ChargeRow key={addcharge.TempClientID} addcharge1={addcharge.AddChargeType} addcharge2={addcharge.PricePerOne} addcharge3={addcharge.Quantity} addcharge4={addcharge.Price}/>
         })
     }
 
@@ -161,8 +166,9 @@ class AdditionalCharges extends Component{
                         onChange={this.onValueChange}
                         required
                         value ={this.state.addchargetype} >
+                            <option value='0'></option>
                         {this.state.chargetype.map(x =>{
-                            return<option value ={x.AdditionalChargeID}>{x.AdditionalChargeType}</option>
+                            return<option value ={x.AdditionalChargeType}>{x.AdditionalChargeType}</option>
 
                         })}
                        
@@ -175,7 +181,9 @@ class AdditionalCharges extends Component{
                         id = "quantity"
                         type="text"
                         name="quantity"
-                        placeholder="" 
+                        placeholder="Enter the Quantity"
+                        onChange={this.onValueChange} 
+                        value ={this.state.quantity}
                         />
                         </Form.Group>
                         </Col>
@@ -187,6 +195,28 @@ class AdditionalCharges extends Component{
                         </div>  
                     </form>
                 </div >
+
+                <div className="py-2">
+               
+                    <table className="table border">
+                        <thead className="thead-dark border"> 
+                            <th scope="col"></th>
+                            <th scope="col">Additional Charge type</th>
+                            <th scope="col" >Price per one</th>
+                            <th scope="col" >Quantity</th>
+                            <th scope="col" >Price</th>
+                            <th scope="col" >Action</th>
+                        </thead>
+                        
+                            <tbody className="text-center">
+                        
+                            {this.fillTable()}
+                            </tbody> 
+                            
+                    </table>
+                    
+                </div>
+
                 <button  className="btn btn-dark m-2  text-right">Save</button>
                 <button className="btn btn-danger m-2  text-right" onClick={this.handleClick}>Close</button> 
             </div>
@@ -201,4 +231,4 @@ class AdditionalCharges extends Component{
 
 }
 
-export default AdditionalCharges;
+export default withRouter(AdditionalCharges);
