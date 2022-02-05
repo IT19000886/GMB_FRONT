@@ -54,7 +54,7 @@ render(){
             <td> {this.state.summary5}</td>
             <td> {this.state.summary6}</td>
             <td> {this.state.summary7}</td>
-            <td> <button className="btn btn-primary btn-block" onClick={this.openAddCharge} > ADD </button></td>
+            <td> <button className=" primary " onClick={this.openAddCharge} > ADD </button></td>
             <td> {this.state.summary3}</td>
             <td> {this.state.summary4}</td>
             <td> <button className="btn btn-primary btn-block" onClick={this.openDiscount}> ADD </button> </td>

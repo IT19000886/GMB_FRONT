@@ -16,7 +16,7 @@ class AdditionalCharges extends Component{
             priceperone:'',
             quantity:'',
             price:'',
-            additionalChargeType:0,
+            additionalchargeType:0,
             addcharges:[],
             chargetype:[],
             pricepone:[],
@@ -54,14 +54,15 @@ class AdditionalCharges extends Component{
                     })
                   }
               )
+              
         
         axios.get('http://localhost:4000/api/setting/additionalcharges')
         .then(
             user=>{
                 this.setState({
                     chargetype:user.data,
-                    priceperone:user.data.PricePerOne,
-                    
+                    pricepone:user.data,
+                   
                 })
             }
         )
@@ -76,13 +77,12 @@ class AdditionalCharges extends Component{
 }
 
     componentDidUpdate(prevProps, prevState){
-        axios.get('http://localhost:4000/api/setting/additonalcharges'+this.state.additionalChargeType)
+        axios.get('http://localhost:4000/api/setting/additionalcharges'+this.state.additionalchargeType)
         .then(
             user=>{
                 this.setState({
-                    addchargetype:user.data.AdditionalChargeType,
-                    priceperone:user.data.PricePerOne,
-                    
+                    addchargetype:user.data.AdditionalChargeType, 
+                    priceperone:user.data.PricePerOne 
                 })
             }
         )
@@ -116,7 +116,9 @@ class AdditionalCharges extends Component{
     }
     fillTable(){
         return this.state.addcharges.map(addcharge =>{
-            return <ChargeRow key={addcharge.TempClientID} addcharge1={addcharge.AddChargeType} addcharge2={addcharge.PricePerOne} addcharge3={addcharge.Quantity} addcharge4={addcharge.Price}/>
+            return <ChargeRow key={addcharge.TempClientID} 
+            addcharge1={addcharge.AddChargeType} addcharge2={addcharge.PricePerOne} 
+            addcharge3={addcharge.Quantity} addcharge4={addcharge.Price}/>
         })
     }
 
@@ -175,6 +177,27 @@ class AdditionalCharges extends Component{
                      </Form.Select>
                      </Col>
                      <Col md ="3">
+                     <Form.Label for="priceperone"><strong>Price Per One: </strong></Form.Label>
+                        <Form.Select 
+                        id="priceperone"
+                        name="priceperone"
+                        onChange={this.onValueChange}
+                        required
+                        value ={this.state.priceperone} >
+                            <option value=""></option>
+                            <option value='5'>5</option>
+                            <option value='15'>15</option>
+                            <option value='20'>20</option>
+                            <option value='30'>30</option>
+                            <option value='50'>50</option>
+                            <option value='100'>100</option>
+                            <option value='150'>150</option>
+                            <option value='200'>200</option>
+                        
+                       
+                     </Form.Select>
+                     </Col>
+                     <Col md ="3">
                      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label for="Quantity"><strong>Quantity</strong></Form.Label>
                         <Form.Control
@@ -199,7 +222,7 @@ class AdditionalCharges extends Component{
                 <div className="py-2">
                
                     <table className="table border">
-                        <thead className="thead-dark border"> 
+                        <thead className="thead-dark border text-center"> 
                             <th scope="col"></th>
                             <th scope="col">Additional Charge type</th>
                             <th scope="col" >Price per one</th>

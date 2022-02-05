@@ -36,11 +36,12 @@ class ChargeRow extends Component{
 render(){
     return(
         <tr className='text-center'>
+        <td></td>
         <td>{this.state.addcharge1}</td>
         <td>{this.state.addcharge2}</td>
         <td>{this.state.addcharge3}</td>
         <td>{this.state.addcharge4}</td>
-        <td></td>
+        
         <td><Button color='danger' onClick={this.onDelete}>Delete</Button></td>       
 </tr>
     )

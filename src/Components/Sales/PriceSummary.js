@@ -20,9 +20,9 @@ componentDidMount(){
     axios.get('http://localhost:4000/api/order/cal/'+this.props.match.params.id)
     .then(
         summaries=> this.setState({summaries: summaries.data})
-        )
-        
+        )      
 }
+    
 componentDidUpdate(){
     axios.get('http://localhost:4000/api/order/cal/'+this.props.match.params.id)
     .then (

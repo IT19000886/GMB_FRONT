@@ -116,22 +116,7 @@ axios.get('http://localhost:4000/api/setting/locationCode')
 
 componentDidUpdate(prevProps, prevState){
 
-  axios.get('http://localhost:4000/api/setting/location')
-  .then(
-           user =>{
-                  this.setState({
-                    locationname:user.data
-                  })
-              }
-        )
-axios.get('http://localhost:4000/api/setting/locationCode')
-  .then(
-           user =>{
-                  this.setState({
-                      locationtype:user.data
-                    })
-              }
-        )
+  
   axios.get('http://localhost:4000/api/setting/coveringType/'+this.state.coveringType1ID)
   .then(
           user =>{
